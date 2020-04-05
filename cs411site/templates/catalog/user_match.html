@@ -1,0 +1,19 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1>Matched User Infomation</h1>
+<div style="margin-left:20px;margin-top:20px">
+<table border="1" width="600">
+  <tr>
+    <td>User Name</td>
+  </tr>
+
+  {% for user in userList %}
+    <tr>
+      <td>{{ user}}</td>
+    </tr>
+  {% endfor %}
+</table>
+</div>
+{{form}}
+{% endblock %}

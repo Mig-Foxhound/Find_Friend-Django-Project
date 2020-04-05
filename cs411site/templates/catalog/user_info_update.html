@@ -1,0 +1,47 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1>Update User Information</h1>
+
+<form action="{% url 'user-update-form' %}" method="post">
+    {% csrf_token %}
+    <p>
+    <label for="name">Your name: </label>
+    <input id="name" type="text" name="name" value="{{ current_name }}">
+    </p>
+
+    <p>
+      <label for="phone">Your phone: </label>
+      <input id="phone" type="text" name="phone" value="{{ current_phone }}">
+    </p>
+
+    <p>
+    <label for="course">Your course: </label>
+    <input id="course" type="text" name="course" value="{{ current_course }}">
+    </p>
+
+    <!-- <p>
+    <label for="food">Choose the food you like: </label>
+    <select name = "food" >
+        <option value="Chinese Food">Chinese Food</option>
+        <option value="American Food">American Food</option>
+        <option value="Mexican Food">Mexican Food</option>
+        <option value="Indian Food">Indian Food</option>
+         <option value="Japanese Food">Japanese Food</option>
+    </select>
+    </p>
+
+    <p>
+    <label for="interest">Choose the activity you like: </label>
+    <select name = "interest" >
+        <option value="Basket Ball">Basketball</option>
+        <option value="Running">Running</option>
+        <option value="Movie">Movie</option>
+    </select>
+    </p> -->
+
+    <input type="submit" value="OK">
+</form>
+
+
+{% endblock %}

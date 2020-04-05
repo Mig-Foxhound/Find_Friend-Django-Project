@@ -1,0 +1,33 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1>Library Information from {{place_name}}</h1>
+
+<div style="margin-left:20px;margin-top:20px">
+
+<h4><strong>Crowdedness:</strong> {{place_crowdedness}}</h4>
+{% if user.is_authenticated %}
+<h4><strong>Report Crowdedness at {{place_name}}(between 0 and 1):</strong></h4>
+<form action="{% url 'report-crowdedness' placeId=place_id %}" method="post">
+  {% csrf_token %}
+  <input id="Crowdedness" type="text" name="crowdness" value="{{ crowdness }}">
+  <input type="submit" value="OK">
+<form>
+{#<h4><strong>Distance:</strong> {{place_distance}}</h4>#}
+
+<p>
+<label for="matchingType">What do you want to do with others? </label>
+</p>
+<p>
+<select name = "matchingType" >
+    <option value="course">Study</option>
+    <option value="food">Eat</option>
+    <option value="activities">Have Fun</option>
+</select>
+<input type="submit" value="OK">
+</p>
+
+<h4><strong>Matched User:</strong> {{ matched_user_number }}</h4>
+{% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h4><strong>longitude:</strong></h4><p id="longitude"></p>
+<h4><strong>latitude:</strong></h4><p id="latitude"></p>
+<button type="button" onclick="getLocation()">Get my current location</button>
+<form action="{% url 'location-search' %}" method="post">
+  {% csrf_token %}
+  <h1>search list of locations</h1>
+  <p>
+    <label for="locationType">Choose the location type: </label>
+    <select name = "locationType" >
+        <option value="Restaurant">Restaurant</option>
+        <option value="Library">Library</option>
+        <option value="Gym">Gym</option>
+        <option value="Cafe">Cafe</option>
+    </select>
+  </p>
+  <p>
+    <label for="distanceLimit">Within: </label>
+    <select name = "distanceLimit" >
+        <option value="0.3">0.3</option>
+        <option value="0.5">0.5</option>
+        <option value="0.7">0.7</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="5">5</option>
+    </select>
+    miles
+  </p>
+  <p>
+    <input type="hidden" id="longitude_form" name="longitude" value="">
+    <input type="hidden" id="latitude_form" name="latitude" value="">
+    <input type="submit" value="OK">
+  </p>
+</form>
+
+<h3>list of nearby locations</h3>
+<table border="1" width="600">
+  <tr>
+    <td>Location Name</td>
+    <td>Type</td>
+    <td>Crowdedness</td>
+    <td>Distance (miles)</td>
+  </tr>
+
+  {% for place in allPlaces %}
+    <tr>
+      {% for attribute in place%}
+        <td>{{ attribute}}</td>
+      {% endfor %}
+    </tr>
+  {% endfor %}
+</table>
+
+<script>
+  var x = document.getElementById("latitude");
+  var xf = document.getElementById("latitude_form");
+  var y = document.getElementById("longitude");
+  var yf = document.getElementById("longitude_form");
+  function getLocation() {
+    if (navigator.geolocation){
+      navigator.geolocation.getCurrentPosition(showPosition);
+    }
+  }
+  function showPosition(position) {
+        x.innerHTML = position.coords.latitude;
+        y.innerHTML = position.coords.longitude;
+        xf.value = position.coords.latitude;
+	yf.value = position.coords.longitude;
+	console.log("Latitude:"+ position.coords.latitude);
+  }
+</script>
+
+{% endblock %}
